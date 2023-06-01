@@ -6,11 +6,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./xcall/libraries/BTPAddress.sol";
 import "./xcall/interfaces/ICallService.sol";
 import "./utils/CloneFactory.sol";
-import "./utils/NFTProxyBase.sol";
+import "./utils/XCallBase.sol";
 import "./utils/WrappedMultiTokenNFT.sol";
 import "./utils/WrappedSingleTokenNFT.sol";
 
-contract NFTBridge is NFTProxyBase, CloneFactory {
+contract NFTBridge is XCallBase, CloneFactory {
     address public wrappedMultiTokenNftAddress;
     address public wrappedSingleTokenNftAddress;
 

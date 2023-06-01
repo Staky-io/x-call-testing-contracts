@@ -9,7 +9,7 @@ import "../xcall/interfaces/IFeeManage.sol";
 import "../xcall/interfaces/ICallService.sol";
 import "../xcall/interfaces/ICallServiceReceiver.sol";
 
-contract NFTProxyBase is ICallServiceReceiver, Initializable, Ownable {
+contract XCallBase is ICallServiceReceiver, Initializable, Ownable {
     address public callSvc;
 
     string public callSvcBtpAddr;

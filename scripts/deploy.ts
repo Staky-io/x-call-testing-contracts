@@ -1,18 +1,27 @@
 import { ethers } from "hardhat";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 
-async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+async function main(hre: HardhatRuntimeEnvironment) {
+  const CALL_SERVICE_ADDRESS = '0x9B68bd3a04Ff138CaFfFe6D96Bc330c699F34901' // ETH sepolia testnet address
 
-  const lockedAmount = ethers.utils.parseEther("1");
+  const WrappedMultiTokenNFT = await ethers.getContractFactory('WrappedMultiTokenNFT');
+  const wrappedMultiTokenNFT = await WrappedMultiTokenNFT.deploy("");
 
-  const Lock = await ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  await wrappedMultiTokenNFT.deployed();
 
-  await lock.deployed();
+  const WrappedSingleTokenNFT = await ethers.getContractFactory('WrappedSingleTokenNFT');
+  const wrappedSingleTokenNFT = await WrappedSingleTokenNFT.deploy("Wrapped NFT", "WNFT");
 
-  console.log(`Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`);
+  await wrappedSingleTokenNFT.deployed();
+
+  const NFTBridge = await ethers.getContractFactory('NFTBridge');
+  const nftBridge = await NFTBridge.deploy(
+    wrappedMultiTokenNFT.address,
+    wrappedSingleTokenNFT.address,
+    CALL_SERVICE_ADDRESS,
+  );
+
+  await nftBridge.deployed();
 }
 
 // We recommend this pattern to be able to use async/await everywhere
