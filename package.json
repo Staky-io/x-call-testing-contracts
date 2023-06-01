@@ -33,6 +33,8 @@
   "scripts": {
     "lint": "solhint 'contracts/**/*.sol'",
     "test": "hardhat test",
-    "compile": "hardhat compile"
+    "compile": "hardhat compile",
+    "coverage": "hardhat coverage",
+    "deploy": "hardhat run scripts/deploy.ts"
   }
 }
