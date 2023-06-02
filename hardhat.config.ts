@@ -22,15 +22,15 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        url: "https://sepolia.infura.io/v3/ffbf8ebe228f4758ae82e175640275e0",
+        url: "https://sepolia.infura.io/v3/9c3444fd560e48a8939fb881df433c64",
       }
     },
     sepolia: {
-      url: 'https://sepolia.infura.io/v3/ffbf8ebe228f4758ae82e175640275e0/',
+      url: 'https://sepolia.infura.io/v3/9c3444fd560e48a8939fb881df433c64',
       accounts: [privateKey]
     },
     bsctestnet: {
-      url: 'https://data-seed-prebsc-2-s3.binance.org:8545/',
+      url: 'https://data-seed-prebsc-2-s3.binance.org:8545',
       accounts: [privateKey]
     }
   },
