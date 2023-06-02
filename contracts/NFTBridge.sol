@@ -98,7 +98,7 @@ contract NFTBridge is XCallBase, CloneFactory {
         if (wrappedTokens[_originalToken] == address(0x0)) {
             address wrappedNFTClone = createClone(wrappedMultiTokenNftAddress);
 
-            WrappedMultiTokenNFT(wrappedNFTClone).setURI(_uri);
+            WrappedMultiTokenNFT(wrappedNFTClone).init(_uri);
             WrappedMultiTokenNFT nftdeploy = WrappedMultiTokenNFT(wrappedNFTClone);
 
             wrappedTokens[_originalToken] = address(nftdeploy);
@@ -119,7 +119,7 @@ contract NFTBridge is XCallBase, CloneFactory {
         if (wrappedTokens[_originalToken] == address(0x0)) {
             address wrappedNFTClone = createClone(wrappedSingleTokenNftAddress);
 
-            WrappedSingleTokenNFT(wrappedNFTClone).setBaseURI(_uri);
+            WrappedSingleTokenNFT(wrappedNFTClone).init(_uri);
             WrappedSingleTokenNFT nftdeploy = WrappedSingleTokenNFT(wrappedNFTClone);
 
             wrappedTokens[_originalToken] = address(nftdeploy);

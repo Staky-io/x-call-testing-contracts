@@ -3,12 +3,27 @@ pragma solidity >=0.8.0 <0.8.5;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract WrappedSingleTokenNFT is ERC721, ERC721Burnable, Ownable {
+contract WrappedSingleTokenNFT is ERC721, ERC721Burnable {
+    address public owner;
+    bool private initialized;
     string private baseURI;
 
     constructor(string memory _name, string memory _symbol) ERC721(_name, _symbol) {}
+
+     modifier onlyOwner() {
+        require(msg.sender == owner, "WrappedMultiTokenNFT: caller is not the owner");
+        _;
+    }
+
+    function init(string calldata _uri) public {
+        require(initialized == false, "Already initialized");
+
+        owner = msg.sender;
+        setBaseURI(_uri);
+
+        initialized = true;
+    }
 
     function _baseURI() internal view override returns (string memory) {
         return baseURI;

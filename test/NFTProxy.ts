@@ -32,6 +32,8 @@ describe('NFTProxy', function () {
 
     await nftBridge.deployed();
 
+    nftBridge.allowBridgeAddress(NFT_BRIDGE_BTP_ADDRESS);
+
     return {
       ICON_NETWORK_ID,
       ETH_NETWORK_ID,
@@ -51,8 +53,8 @@ describe('NFTProxy', function () {
 
       // address to, string memory tokenScore, uint256 id, uint256 value, string memory uri
       const params = ethers.utils.defaultAbiCoder.encode(
-        ['address','string','uint256','uint256','string'],
-        [user.address, 'cx382ae90c4641945063f0656fc990eb5321aebd49', 1, 1, 'QmXQiyk8fhCBU3uo5RTZXGFgF84a38r4JbGXiJYMb5ToXe']
+        ['address','string','uint256','uint256','string', 'bool'],
+        [user.address, 'cx382ae90c4641945063f0656fc990eb5321aebd49', 1, 1, 'QmXQiyk8fhCBU3uo5RTZXGFgF84a38r4JbGXiJYMb5ToXe', false]
       );
 
       const input = ethers.utils.defaultAbiCoder.encode(
