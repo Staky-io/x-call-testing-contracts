@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { HardhatUserConfig } from 'hardhat/config';
 import '@nomicfoundation/hardhat-toolbox';
 import 'hardhat-gas-reporter';
@@ -14,6 +15,12 @@ const config: HardhatUserConfig = {
       },
     },
   },
+  etherscan: {
+    apiKey: {
+      sepolia: process.env.ETHERSCAN_API_KEY || '',
+      bscTestnet: process.env.BSCSCAN_API_KEY || '',
+    },
+  },
   gasReporter: {
     currency: 'USD',
     enabled: false, // set to true for gas reporting
@@ -27,11 +34,13 @@ const config: HardhatUserConfig = {
     },
     sepolia: {
       url: 'https://sepolia.infura.io/v3/9c3444fd560e48a8939fb881df433c64',
-      accounts: [privateKey]
+      accounts: [privateKey],
+      chainId: 11155111,
     },
-    bsctestnet: {
+    bsc_testnet: {
       url: 'https://data-seed-prebsc-2-s3.binance.org:8545',
-      accounts: [privateKey]
+      accounts: [privateKey],
+      chainId: 97,
     }
   },
 };

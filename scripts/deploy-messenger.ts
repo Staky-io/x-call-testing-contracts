@@ -12,6 +12,8 @@ export default async function main() {
     const deploy = async (factory: string, args: any[], overrides = {}) => {
       const ContractFactory = await ethers.getContractFactory(factory);
       const contract = await ContractFactory.deploy(...args, overrides);
+
+      console.log(`Deploying contract ${factory} with args:`, args)
   
       await contract.deployed();
 
