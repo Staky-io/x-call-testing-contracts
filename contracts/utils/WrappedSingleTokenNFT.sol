@@ -11,7 +11,7 @@ contract WrappedSingleTokenNFT is ERC721, ERC721Burnable {
 
     constructor(string memory _name, string memory _symbol) ERC721(_name, _symbol) {}
 
-     modifier onlyOwner() {
+    modifier onlyOwner() {
         require(msg.sender == owner, "WrappedMultiTokenNFT: caller is not the owner");
         _;
     }

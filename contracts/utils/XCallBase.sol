@@ -25,8 +25,9 @@ contract XCallBase is ICallServiceReceiver, Initializable, Ownable {
 
     mapping(uint256 => RollbackData) private rollbacks;
 
-    event MessageReceived(string _from, bytes _data);
-    event RollbackDataReceived(string _from, bytes _data);
+    event MessageReceived(string indexed _from, bytes _data);
+    event MessageSent(address indexed _from, uint256 indexed _messageId, bytes _data);
+    event RollbackDataReceived(string indexed _from, bytes _data);
 
     receive() external payable {}
     fallback() external payable {}
@@ -120,15 +121,19 @@ contract XCallBase is ICallServiceReceiver, Initializable, Ownable {
             );
 
             rollbacks[id] = RollbackData(id, _rollback, sn);
+
+            emit MessageSent(msg.sender, sn, _data);
         } else {
             uint fee = getXCallFee(_to, false);
             require(msg.value >= fee, "NFTProxy: insufficient fee");
 
-            ICallService(callSvc).sendCallMessage{value:msg.value}(
+            uint256 sn = ICallService(callSvc).sendCallMessage{value:msg.value}(
                 _to,
                 _data,
                 _rollback
             );
+
+            emit MessageSent(msg.sender, sn, _data);
         }
     }
 
