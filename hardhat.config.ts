@@ -11,7 +11,7 @@ const config: HardhatUserConfig = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 1000,
+        runs: 100,
       },
     },
   },
@@ -38,7 +38,7 @@ const config: HardhatUserConfig = {
       chainId: 11155111,
     },
     bsc_testnet: {
-      url: 'https://data-seed-prebsc-2-s3.binance.org:8545',
+      url: 'https://data-seed-prebsc-1-s3.binance.org:8545/',
       accounts: [privateKey],
       chainId: 97,
     }

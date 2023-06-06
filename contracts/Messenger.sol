@@ -157,17 +157,19 @@ contract Messenger is XCallBase {
 
     // Admin functions
 
-    function authorizeBridge(
+    function authorizeMessenger(
         string memory _BTPaddress
     ) public onlyOwner {
         authorizedMessengers[_BTPaddress] = true;
-        messengersNID[BTPAddress.networkAddress(_BTPaddress)] = _BTPaddress;
+        string memory nid = BTPAddress.networkAddress(_BTPaddress);
+        messengersNID[nid] = _BTPaddress;
     }
 
-    function deauthorizeBridge(
+    function revokeMessenger(
         string memory _BTPaddress
     ) public onlyOwner {
         authorizedMessengers[_BTPaddress] = false;
-        delete messengersNID[BTPAddress.networkAddress(_BTPaddress)];
+        string memory nid = BTPAddress.networkAddress(_BTPaddress);
+        delete messengersNID[nid];
     }
 }

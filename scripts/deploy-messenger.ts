@@ -2,6 +2,7 @@ import hre from "hardhat";
 import { ethers } from "hardhat";
 import { getNetworkSettings } from "./utils";
 import fs from "fs";
+import { utils } from "ethers";
 
 export default async function main() {
   try {
@@ -23,7 +24,10 @@ export default async function main() {
       return contract;
     }
 
-    await deploy('Messenger', [callService, networkID]);
+    await deploy('Messenger', [callService, networkID], {
+      gasLimit: 5000000,
+      gasPrice: utils.parseUnits('40', 'gwei')
+    });
 
     if (!fs.existsSync('./deployments')) {
       fs.mkdirSync('./deployments');
