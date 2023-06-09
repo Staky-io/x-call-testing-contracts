@@ -140,6 +140,7 @@ contract XCallBase is ICallServiceReceiver, Initializable, Ownable {
     /**
         @notice Used for unit testing.
         @dev Only callable from the owner.
+        @param _from Mock expeditor's BTP address delivered from the test suite
         @param _data The mock calldata delivered from the test suite
         (supposed to be as close as handleCallMessage input)
      */

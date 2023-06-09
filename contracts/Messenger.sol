@@ -3,6 +3,7 @@ pragma solidity >=0.8.0 <0.8.5;
 pragma abicoder v2;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "./xcall/libraries/BTPAddress.sol";
 import "./xcall/libraries/ParseAddress.sol";
 import "./xcall/interfaces/ICallService.sol";
@@ -51,13 +52,11 @@ contract Messenger is XCallBase {
 
         string memory messageId = string(
             abi.encodePacked(
-                keccak256(
-                    abi.encodePacked(
-                        msg.sender,
-                        sentMessagesCount[msg.sender],
-                        block.timestamp
-                    )
-                )
+                networkID,
+                ".",
+                abi.encodePacked(msg.sender),
+                ".",
+                Strings.toString(sentMessagesCount[msg.sender])
             )
         );
 
