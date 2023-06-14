@@ -50,15 +50,7 @@ contract Messenger is XCallBase {
         require(msg.value >= fee, "Messenger: insufficient fee");
         require(authorizedMessengers[_to] == true, "Messenger: no bridge found for this network");
 
-        string memory messageId = string(
-            abi.encodePacked(
-                networkID,
-                ".",
-                abi.encodePacked(msg.sender),
-                ".",
-                Strings.toString(sentMessagesCount[msg.sender])
-            )
-        );
+        string memory messageId = _getNewMessageID();
 
         bytes memory payload = abi.encode("SEND_TEXT_MESSAGE", abi.encode(messageId, _message));
         bytes memory rollbackData = abi.encode("ROLLBACK_TEXT_MESSAGE", abi.encode(messageId));
@@ -88,6 +80,20 @@ contract Messenger is XCallBase {
     }
 
     // internal functions
+
+    function _getNewMessageID() internal view returns (string memory) {
+        string memory messageId = string(
+            abi.encodePacked(
+                networkID,
+                ".",
+                Strings.toHexString(uint160(msg.sender), 20),
+                ".",
+                Strings.toString(sentMessagesCount[msg.sender])
+            )
+        );
+
+        return messageId;
+    }
 
     function _processTextMessage(
         string memory _from,
