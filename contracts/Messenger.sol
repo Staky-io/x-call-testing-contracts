@@ -21,8 +21,8 @@ contract Messenger is XCallBase {
     mapping(string => string) public sentMessages; // sent messageID => message
     mapping(address => uint) public sentMessagesCount; // user => count
 
-    event TextMessageReceived(string indexed _from, string indexed _messageID);
-    event TextMessageSent(address indexed _from, string indexed _messageID);
+    event TextMessageReceived(string indexed _from, string _messageID);
+    event TextMessageSent(address indexed _from, string _messageID);
 
     /**
         @param _callServiceAddress Address of x-call service on the current chain
