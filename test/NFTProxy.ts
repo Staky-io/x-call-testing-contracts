@@ -47,24 +47,11 @@ describe('NFTProxy', function () {
     };
   }
 
-  describe('Bridge NFT', function () {
-    it('Should be able to bridge an NFT using encoded bytes data', async function () {
+  describe('NFT Bridge test suite', function () {
+    it('Should be implemented', async function () {        
       const { NFT_BRIDGE_BTP_ADDRESS, user, nftBridge } = await loadFixture(deployNFTBridge);
 
-      // address to, string memory tokenScore, uint256 id, uint256 value, string memory uri
-      const params = ethers.utils.defaultAbiCoder.encode(
-        ['address','string','uint256','uint256','string', 'bool'],
-        [user.address, 'cx382ae90c4641945063f0656fc990eb5321aebd49', 1, 1, 'QmXQiyk8fhCBU3uo5RTZXGFgF84a38r4JbGXiJYMb5ToXe', false]
-      );
-
-      const input = ethers.utils.defaultAbiCoder.encode(
-        ['string', 'bytes'],
-        ['BRIDGE_NFT_FROM_CHAIN', params]
-      );
-
-      await nftBridge.testXCall(NFT_BRIDGE_BTP_ADDRESS, input);
-
-      // TODO: implement testing
-    });
+      expect(false).to.be.equal(true);
+    })
   })
 });
